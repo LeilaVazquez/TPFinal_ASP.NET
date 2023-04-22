@@ -11,7 +11,7 @@ namespace TPFinalNivel3_Vazquez
 {
 
 
-    public partial class Default
+    public partial class Catalogo
     {
     }
 }
