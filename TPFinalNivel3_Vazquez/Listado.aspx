@@ -3,6 +3,11 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <style>
+         .btn-ok {
+            background-color:palevioletred;
+            color: white;
+    </style>
     <h1>Artículos</h1>
     <div class="row">
         <div class="col-6">
@@ -69,5 +74,5 @@
             <asp:CommandField HeaderText="Accion" ShowSelectButton="true" SelectText="✍" />
         </Columns>
     </asp:GridView>
-    <a href="AgregarArticulo.aspx" class="btn btn-primary">Agregar</a>
+    <a href="AgregarArticulo.aspx" class="btn btn-ok">Agregar</a>
 </asp:Content>
