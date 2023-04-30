@@ -110,18 +110,14 @@ namespace metodos
         {
             List<Articulos> art = new List<Articulos>();
             
-
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                //string consulta = "Select A.Codigo, A.Nombre, A.Descripcion, M.Descripcion as Marca, A.ImagenUrl, C.Descripcion as Categoria, A.Precio, A.IdMarca, A.IdCategoria, A.Id From ARTICULOS A, CATEGORIAS C, MARCAS M Where M.Id = A.IdMarca AND C.Id = A.IdCategoria";
                 string consulta = "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, M.Descripcion as Marca, A.ImagenUrl, C.Descripcion as Categoria, A.Precio, A.IdMarca, A.IdCategoria FROM ARTICULOS A INNER JOIN CATEGORIAS C ON C.Id = A.IdCategoria INNER JOIN MARCAS M ON M.Id = A.IdMarca WHERE A.Id = @id";
-                // string consulta = "Select from ARTICULOS where Id = @id";
                 datos.setearConsulta(consulta);
                 datos.setearParametro("@id", id);
                 datos.ejecutarLectura();
 
-                //guardo todo en una lista
                 while (datos.Lector.Read())
                 {
                     Articulos aux2 = new Articulos();
@@ -144,25 +140,10 @@ namespace metodos
 
                     art.Add(aux2);
                 }
-
-                //recorro la lista para ver si me coincide el id recibido como parametro
-                Articulos articuloEncontrado = art.Find(a => a.Id == Convert.ToInt32(id));
-
-                //si me coincide muestro la coincidencia
-                if (articuloEncontrado != null)
-                {
-                    //mostrar en DEtalle.aspx el articulo
-                    //Console.WriteLine($"El artículo encontrado es: {articuloEncontrado.Nombre}");
-                    //string url = $"Detalle.aspx?id={articuloEncontrado.Id}";
-                    //HttpContext.Current.Response.Redirect(url);
-                }
-
-
                 return art;
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
@@ -170,17 +151,16 @@ namespace metodos
         public void agregarConSP(Articulos nuevo)
         {
             AccesoDatos datos = new AccesoDatos();
-
             try
             {
-                datos.setearProcedimiento("storedAltaArticulo"); //generar SP
+                datos.setearProcedimiento("storedAltaArticulo");
                 datos.setearParametro("@codigo", nuevo.Codigo);
                 datos.setearParametro("@nombre", nuevo.Nombre);
                 datos.setearParametro("@desc", nuevo.Descripcion);
                 datos.setearParametro("@idMarca", nuevo.Marca.Id);
                 datos.setearParametro("@idCategoria", nuevo.Categoria.Id);
                 datos.setearParametro("@img", nuevo.ImagenUrl);
-                datos.setearParametro("@precio", nuevo.Precio);
+                datos.setearParametro("@Precio", nuevo.Precio);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -199,13 +179,13 @@ namespace metodos
 
             try
             {
-                datos.setearProcedimiento("storedModificarArt"); //generarSP
+                datos.setearProcedimiento("storedModificarArt");
                 datos.setearParametro("@codigo", art.Codigo);
                 datos.setearParametro("@nombre", art.Nombre);
-                datos.setearParametro("@descrip", art.Descripcion);
+                datos.setearParametro("@desc", art.Descripcion);
                 datos.setearParametro("@idMarca", art.Marca.Id);
-                datos.setearParametro("@idCat", art.Categoria.Id);
-                datos.setearParametro("@imagen", art.ImagenUrl);
+                datos.setearParametro("@idCategoria", art.Categoria.Id);
+                datos.setearParametro("@img", art.ImagenUrl);
                 datos.setearParametro("@precio", art.Precio);
                 datos.setearParametro("@id", art.Id);
                 datos.ejecutarAccion();

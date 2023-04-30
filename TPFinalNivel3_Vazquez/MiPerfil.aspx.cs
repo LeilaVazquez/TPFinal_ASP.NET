@@ -24,7 +24,7 @@ namespace TPFinalNivel3_Vazquez
                         txtEmail.ReadOnly = true;
                         txtNombre.Text = usuario.Nombre;
                         txtApellido.Text = usuario.Apellido;
-                        if (!string.IsNullOrEmpty(usuario.ImagenPerfil))
+                        if (!string.IsNullOrEmpty(usuario.ImagenPerfil)) //VER
                             imgNuevoPerfil.ImageUrl = "~/ProfileImages/" + usuario.ImagenPerfil;
                     }
                 }
@@ -48,7 +48,7 @@ namespace TPFinalNivel3_Vazquez
 
                 if (txtImagen.PostedFile.FileName != "")
                 {
-                    string ruta = Server.MapPath("./ProfileImages/");
+                    string ruta = Server.MapPath("./ProfileImages/"); ///VER
                     txtImagen.PostedFile.SaveAs(ruta + "perfil-" + user.Id + ".jpg"); 
                     user.ImagenPerfil = "perfil-" + user.Id + ".jpg";
                 }

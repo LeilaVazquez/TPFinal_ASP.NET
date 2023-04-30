@@ -25,7 +25,7 @@ namespace TPFinalNivel3_Vazquez
             {
                 FiltroAvanzado = false;
                 ArticuloMetodos articulo = new ArticuloMetodos();
-                Session.Add("listaArticulos", articulo.listarConSP());
+                Session.Add("listaArticulos", articulo.listarConSP());             
                 dgvArticulos.DataSource = Session["listaArticulos"];
                 dgvArticulos.DataBind();
             }

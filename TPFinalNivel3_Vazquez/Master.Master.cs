@@ -13,7 +13,7 @@ namespace TPFinalNivel3_Vazquez
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            imgPerfil.ImageUrl = "https://app.cdnstabletransit.net/images/avatar-whiteback.png";
+            imgPerfil.ImageUrl = "Images/perfil.png";
             if (!(Page is Login || Page is Registro || Page is Default || Page is Catalogo || Page is Error || Page is Contacto || Page is Listado || Page is Detalle))
             {
                 if (!(Seguridad.sessionActiva(Session["sesionActiva"])))
@@ -22,12 +22,29 @@ namespace TPFinalNivel3_Vazquez
                 }
                 else
                 {
+                    
                     Usuario user = (Usuario)Session["sesionActiva"];
-                    lblUser.Text = user.Email;
+                    lblUser.Text = user.Nombre; // solo se ve el label en miPerful y Favoritos, las q requieren login
                     if (!string.IsNullOrEmpty(user.ImagenPerfil))
                         imgPerfil.ImageUrl = "~/ProfileImages/" + user.ImagenPerfil;
                 }
             }
+            if (Page is Default || Page is Catalogo || Page is Error || Page is Contacto || Page is Listado || Page is Detalle)
+            {
+                if (Seguridad.sessionActiva(Session["sesionActiva"]))
+                {
+                    Usuario user = (Usuario)Session["sesionActiva"];
+                    lblUser.Text = user.Nombre;
+                    if (!string.IsNullOrEmpty(user.ImagenPerfil))
+                        imgPerfil.ImageUrl = "~/ProfileImages/" + user.ImagenPerfil;
+                }
+               
+                
+
+
+                
+            }
+            
         }
 
         protected void btnSalir_Click(object sender, EventArgs e)

@@ -13,35 +13,19 @@ namespace TPFinalNivel3_Vazquez
 {
     public partial class Detalle : System.Web.UI.Page
     {
-        public List<Articulos> Detalles { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            ArticuloMetodos detalle = new ArticuloMetodos();
             try
             {
+
+                string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
                 if (!IsPostBack)
                 {
 
-                    //string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
-                    //if (id != "" && !IsPostBack)
-                    //{
-                    //    ArticuloMetodos articulo = new ArticuloMetodos();
-                    //    Articulos seleccionado = (articulo.listar(id))[0];
-
-                    //    txtId.Text = id;
-                    //    txtCodigo.Text = seleccionado.Codigo;
-                    //    txtNombre.Text = seleccionado.Nombre;
-                    //    txtDescripcion.Text = seleccionado.Descripcion;
-                    //    txtPrecio.Text = seleccionado.Precio.ToString();
-                    //    txtImagenUrl.Text = seleccionado.ImagenUrl;
-                    //    ddlMarca.SelectedValue = seleccionado.Marca.Id.ToString();
-                    //    ddlCategoria.SelectedValue = seleccionado.Categoria.Id.ToString();
-                    //    txtImagenUrl_TextChanged(sender, e);
-                    //}
-
-                    //  utilizar el valor del ID para obtener la información correspondiente y mostrarla en la página
-                    // Detalles = detalle.listarxId(valor);
-
+                    ArticuloMetodos articulo = new ArticuloMetodos();
+                    Session.Add("listaArticulos", articulo.listarxId(id));
+                    dgvArticulos.DataSource = Session["listaArticulos"];
+                    dgvArticulos.DataBind();
 
                 }
             }

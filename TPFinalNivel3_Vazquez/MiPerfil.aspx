@@ -6,6 +6,10 @@
             color: red;
             font-size: 15px;
         }
+        .btn-ok {
+            background-color:palevioletred;
+            color: white;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -43,7 +47,7 @@
     <div class="row">
         <div class="col-md-4">
             <!-- OnClientClick="return validar()" -->
-            <asp:Button Text="Guardar" CssClass="btn btn-primary" OnClick="btnGuardar_Click" ID="btnGuardar" runat="server" />
+            <asp:Button Text="Guardar" CssClass="btn btn-ok" OnClick="btnGuardar_Click" ID="btnGuardar" runat="server" />
         </div>
     </div>
 </asp:Content>

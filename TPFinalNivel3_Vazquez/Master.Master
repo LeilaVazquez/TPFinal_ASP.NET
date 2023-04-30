@@ -13,8 +13,42 @@
     </asp:ContentPlaceHolder>
     <style>
         .btn-login {
-            background-color:palevioletred;
+            background-color: palevioletred;
             color: white;
+        }
+
+        html {
+            position: relative;
+            min-height: 100%;
+        }
+
+        body {
+            margin-bottom: 60px;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+            padding-top: 15px
+        }
+
+        .container {
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .avatar {
+            display: flex;
+            height: 35px;
+            width: 35px;
+            border-radius: 50%;
+        }
+
+        #lblUser {
+            display: flex;
+            align-items: center;
         }
     </style>
 </head>
@@ -54,9 +88,9 @@
                         else
                         {
                      %>
-                           <asp:Button Text="Salir"  ID="btnSalir" OnClick="btnSalir_Click" CssClass="btn btn-outline-primary me-2"  runat="server" />  
+                           <asp:Button Text="Salir"  ID="btnSalir" OnClick="btnSalir_Click" CssClass="btn btn-outline-light"  runat="server" />  
                             <asp:Label ID="lblUser" runat="server" ForeColor="White" cssclass="container-fluid"/>
-                            <asp:Image ID="imgPerfil" Style="height:40px; width:40px; border-radius: 50%;" runat="server" />
+                            <asp:Image ID="imgPerfil" CssClass="avatar" runat="server" />
                 <% } %>          
                 </div>
               </div>
@@ -69,5 +103,14 @@
            </div>
         </div>
     </form>
+    <footer>
+      <div class="container d-flex justify-content-center align-items-center">
+         <p> Sitio creado por </p> 
+         <p>  <a href="https://github.com/LeilaVazquez">
+      <img src="Images/github.svg" alt="" />
+    </a></p>
+    <p> /LeilaVazquez</p>    
+  </div>
+</footer>
 </body>
 </html>

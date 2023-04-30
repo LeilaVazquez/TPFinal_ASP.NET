@@ -19,7 +19,7 @@
         }
         .btn-list {
             background-color:lightpink;
-            color:deeppink;
+            color:#c5217a;
         }
     </style>
     <h1>Catálogo</h1>
