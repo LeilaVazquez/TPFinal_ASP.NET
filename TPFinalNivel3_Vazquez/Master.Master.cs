@@ -13,40 +13,48 @@ namespace TPFinalNivel3_Vazquez
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            imgPerfil.ImageUrl = "Images/perfil.png";
-            if (!(Page is Login || Page is Registro || Page is Default || Page is Catalogo || Page is Error || Page is Contacto || Page is Listado || Page is Detalle))
+
+            if (Seguridad.sessionActiva(Session["sesionActiva"]))
             {
-                if (!(Seguridad.sessionActiva(Session["sesionActiva"])))
+                Usuario user = (Usuario)Session["sesionActiva"];
+                lblUser.Text = user.Nombre;
+
+                if (!string.IsNullOrEmpty(user.ImagenPerfil))
                 {
-                    Response.Redirect("Login.aspx", false);
+                    imgPerfil.ImageUrl = "~/Images/Profile/" + user.ImagenPerfil;
                 }
                 else
                 {
-                    
-                    Usuario user = (Usuario)Session["sesionActiva"];
-                    lblUser.Text = user.Nombre; // solo se ve el label en miPerful y Favoritos, las q requieren login
-                    if (!string.IsNullOrEmpty(user.ImagenPerfil))
-                        imgPerfil.ImageUrl = "~/ProfileImages/" + user.ImagenPerfil;
+                    imgPerfil.ImageUrl = "~/Images/perfil.png";
                 }
+
             }
-            if (Page is Default || Page is Catalogo || Page is Error || Page is Contacto || Page is Listado || Page is Detalle)
+            else
             {
-                if (Seguridad.sessionActiva(Session["sesionActiva"]))
+                imgPerfil.ImageUrl = "~/Images/perfil.png";
+            }
+
+           
+            if (!(Page is Login || Page is Registro || Page is Default || Page is Catalogo || Page is Contacto || Page is Detalle || Page is Listado))
+            {
+                if (!Seguridad.sessionActiva(Session["sesionActiva"]))
+                    Response.Redirect("Login.aspx", false);
+                else
                 {
                     Usuario user = (Usuario)Session["sesionActiva"];
                     lblUser.Text = user.Nombre;
                     if (!string.IsNullOrEmpty(user.ImagenPerfil))
-                        imgPerfil.ImageUrl = "~/ProfileImages/" + user.ImagenPerfil;
+                    {
+                        imgPerfil.ImageUrl = "~/Images/Profile/" + user.ImagenPerfil;
+                    }
+                    else
+                    {
+                        imgPerfil.ImageUrl = "~/Images/perfil.png";
+                    }
                 }
-               
-                
 
-
-                
             }
-            
         }
-
         protected void btnSalir_Click(object sender, EventArgs e)
         {
             Session.Clear();

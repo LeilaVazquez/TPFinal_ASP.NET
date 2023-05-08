@@ -15,7 +15,7 @@ namespace TPFinalNivel3_Vazquez
         protected void Page_Load(object sender, EventArgs e)
         {
             ArticuloMetodos articulo = new ArticuloMetodos();
-            ListaArticulos = articulo.listarConSP();
+            ListaArticulos = articulo.listar();
 
             if (!IsPostBack)
             {

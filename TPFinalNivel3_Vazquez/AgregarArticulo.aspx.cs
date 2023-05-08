@@ -62,6 +62,8 @@ namespace TPFinalNivel3_Vazquez
                 Response.Redirect("Error.aspx", false);
             }
         }
+
+        //agregar validacion para no ingresar campos vacios validacion del back
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
             try
@@ -83,17 +85,17 @@ namespace TPFinalNivel3_Vazquez
                 if (Request.QueryString["id"] != null)
                 {
                     nuevo.Id = int.Parse(txtId.Text);
-                    articulo.modificarConSP(nuevo);
+                    articulo.modificarArticulo(nuevo);
                 }
                 else
                 {
-                    articulo.agregarConSP(nuevo);
+                    articulo.agregarArticulo(nuevo);
                 }
 
             }
             catch (Exception ex)
             {
-                //Session.Add("error", ex.ToString());
+                Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
 
@@ -110,20 +112,17 @@ namespace TPFinalNivel3_Vazquez
         }
         protected void btnConfirmarEliminacion_Click(object sender, EventArgs e)
         {
-            try
+            if (ckConfirmaEliminacion.Checked)
             {
-                if (ckConfirmaEliminacion.Checked)
-                {
-                    ArticuloMetodos articulo = new ArticuloMetodos();
-                    articulo.eliminarConSP(int.Parse(txtId.Text));
-                    Response.Redirect("Listado.aspx");
-                }
+                ArticuloMetodos articulo = new ArticuloMetodos();
+                articulo.eliminarArticulo(int.Parse(txtId.Text));
+                Response.Redirect("Listado.aspx");
             }
-            catch (Exception ex)
-            {
-                Session.Add("error", ex.ToString());
-                Response.Redirect("Error.aspx", false);
-            }
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Listado.aspx");
         }
     }
 }

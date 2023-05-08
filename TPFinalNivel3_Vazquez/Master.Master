@@ -40,7 +40,7 @@
         }
 
         .avatar {
-            display: flex;
+
             height: 35px;
             width: 35px;
             border-radius: 50%;
@@ -90,7 +90,7 @@
                      %>
                            <asp:Button Text="Salir"  ID="btnSalir" OnClick="btnSalir_Click" CssClass="btn btn-outline-light"  runat="server" />  
                             <asp:Label ID="lblUser" runat="server" ForeColor="White" cssclass="container-fluid"/>
-                            <asp:Image ID="imgPerfil" CssClass="avatar" runat="server" />
+                            <asp:Image ID="imgPerfil" CssClass="avatar" runat="server"  />
                 <% } %>          
                 </div>
               </div>

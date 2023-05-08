@@ -9,6 +9,10 @@ namespace metodos
 {
     public class UsuarioMetodos
     {
+        //metodo que genere el obj usuario en la DB con solo 2 valores, por defecto ponerlos en 
+        //id - email - pass  admin:false
+
+
         public bool Login(Usuario usuario)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -38,14 +42,15 @@ namespace metodos
                 throw ex;
             }
         }
-        public int insertarNuevo(Usuario nuevo)
+        public int registrarUsuario(Usuario nuevo)
         {
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearProcedimiento("insertarNuevo"); //crear SP
-                datos.setearParametro("@email", nuevo.Email);
-                datos.setearParametro("@pass", nuevo.Pass);
+                //datos.setearConsulta("Insert into USERS (Nombre, Apellido, urlImagenPerfil, email, pass, admin) output inserted.id ('" + nuevo.Nombre + "','" + nuevo.Apellido + "','" + nuevo.ImagenPerfil + "',@email, @pass, @admin)");
+                datos.setearConsulta("Insert into USERS (email, pass, admin) output inserted.id values ('" + nuevo.Email + "' , '" + nuevo.Pass + "', '0')");
+                //datos.setearParametro("@email", nuevo.Email);
+                //datos.setearParametro("@pass", nuevo.Pass);
                 return datos.ejecutarAccionScalar();
             }
             catch (Exception ex)
@@ -57,12 +62,13 @@ namespace metodos
                 datos.cerrarConexion();
             }
         }
-        public void actualizar(Usuario user)
+        public void actualizarUsuario(Usuario user)
         {
             AccesoDatos datos = new AccesoDatos();
             try
             {
                 datos.setearConsulta("Update Users set urlImagenPerfil = @urlImagenPerfil, nombre = @nombre, apellido = @apellido where Id = @Id");
+                
                 datos.setearParametro("@urlImagenPerfil", (object)user.ImagenPerfil ?? DBNull.Value);
                 datos.setearParametro("@nombre", user.Nombre);
                 datos.setearParametro("@apellido", user.Apellido);

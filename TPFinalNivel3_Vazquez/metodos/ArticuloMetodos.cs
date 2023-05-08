@@ -66,46 +66,6 @@ namespace metodos
 
         }
 
-        public List<Articulos> listarConSP()
-        {
-            List<Articulos> lista = new List<Articulos>();
-            AccesoDatos datos = new AccesoDatos();
-
-            try
-            {
-
-                datos.setearProcedimiento("storedListar");
-                datos.ejecutarLectura();
-                while (datos.Lector.Read())
-                {
-                    Articulos aux = new Articulos();
-                    aux.Id = (int)datos.Lector["Id"];
-                    aux.Codigo = (string)datos.Lector["Codigo"];
-                    aux.Nombre = (string)datos.Lector["Nombre"];
-                    aux.Descripcion = (string)datos.Lector["Descripcion"];
-
-                    if (!(datos.Lector["ImagenUrl"] is DBNull))
-                        aux.ImagenUrl = (string)datos.Lector["ImagenUrl"];
-
-                    aux.Marca = new Marca();
-                    aux.Marca.Id = (int)datos.Lector["IdMarca"];
-                    aux.Marca.Descrip = (string)datos.Lector["Marca"];
-                    aux.Categoria = new Categoria();
-                    aux.Categoria.Id = (int)datos.Lector["IdCategoria"];
-                    aux.Categoria.Descrip = (string)datos.Lector["Categoria"];
-                    aux.Precio = (decimal)datos.Lector["Precio"];
-
-                    lista.Add(aux);
-                }
-                return lista;
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
-
         public List<Articulos> listarxId(string id)
         {
             List<Articulos> art = new List<Articulos>();
@@ -148,19 +108,16 @@ namespace metodos
             }
         }
 
-        public void agregarConSP(Articulos nuevo)
+        public void agregarArticulo(Articulos nuevo)
         {
             AccesoDatos datos = new AccesoDatos();
+
             try
             {
-                datos.setearProcedimiento("storedAltaArticulo");
-                datos.setearParametro("@codigo", nuevo.Codigo);
-                datos.setearParametro("@nombre", nuevo.Nombre);
-                datos.setearParametro("@desc", nuevo.Descripcion);
+                datos.setearConsulta("Insert into ARTICULOS (Codigo, Nombre, Descripcion, Precio, IdMarca, IdCategoria, ImagenUrl) values ('" + nuevo.Codigo + "','" + nuevo.Nombre + "','" + nuevo.Descripcion + "','" + nuevo.Precio + "',@idMarca, @idCategoria, @ImagenUrl)");
                 datos.setearParametro("@idMarca", nuevo.Marca.Id);
                 datos.setearParametro("@idCategoria", nuevo.Categoria.Id);
-                datos.setearParametro("@img", nuevo.ImagenUrl);
-                datos.setearParametro("@Precio", nuevo.Precio);
+                datos.setearParametro("@ImagenUrl", nuevo.ImagenUrl);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -173,19 +130,18 @@ namespace metodos
             }
         }
 
-        public void modificarConSP(Articulos art)
+        public void modificarArticulo(Articulos art)
         {
             AccesoDatos datos = new AccesoDatos();
-
             try
             {
-                datos.setearProcedimiento("storedModificarArt");
+                datos.setearConsulta("update ARTICULOS set Codigo = @codigo, Nombre = @nombre, Descripcion = @descrip, IdMarca = @idMarca, IdCategoria = @idCat, ImagenUrl = @imagen, Precio = @precio Where Id = @id");
                 datos.setearParametro("@codigo", art.Codigo);
                 datos.setearParametro("@nombre", art.Nombre);
-                datos.setearParametro("@desc", art.Descripcion);
+                datos.setearParametro("@descrip", art.Descripcion);
                 datos.setearParametro("@idMarca", art.Marca.Id);
-                datos.setearParametro("@idCategoria", art.Categoria.Id);
-                datos.setearParametro("@img", art.ImagenUrl);
+                datos.setearParametro("@idCat", art.Categoria.Id);
+                datos.setearParametro("@imagen", art.ImagenUrl);
                 datos.setearParametro("@precio", art.Precio);
                 datos.setearParametro("@id", art.Id);
                 datos.ejecutarAccion();
@@ -199,13 +155,16 @@ namespace metodos
             {
                 datos.cerrarConexion();
             }
+
         }
-        public void eliminarConSP(int id)
+
+        public void eliminarArticulo(int id)
         {
+
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                datos.setearProcedimiento("storedEliminarArt"); //generar SP
+                datos.setearConsulta("delete from ARTICULOS where Id = @id");
                 datos.setearParametro("@id", id);
                 datos.ejecutarAccion();
             }
@@ -214,7 +173,6 @@ namespace metodos
                 throw ex;
             }
         }
-
         public List<Articulos> filtrar(string campo, string criterio, string filtro)
         {
             List<Articulos> lista = new List<Articulos>();

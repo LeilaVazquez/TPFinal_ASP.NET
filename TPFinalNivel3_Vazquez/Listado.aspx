@@ -55,7 +55,7 @@
     <div class="row">
         <div class="col-3">
             <div class="mb-3">
-                <asp:Button Text="Buscar" runat="server" CssClass="btn btn-primary" ID="btnBuscar" OnClick="btnBuscar_Click" />
+                <asp:Button Text="Buscar" runat="server" CssClass="btn btn-ok" ID="btnBuscar" OnClick="btnBuscar_Click" />
             </div>
         </div>
     </div>

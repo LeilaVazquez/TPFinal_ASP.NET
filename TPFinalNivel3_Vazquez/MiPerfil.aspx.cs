@@ -24,8 +24,8 @@ namespace TPFinalNivel3_Vazquez
                         txtEmail.ReadOnly = true;
                         txtNombre.Text = usuario.Nombre;
                         txtApellido.Text = usuario.Apellido;
-                        if (!string.IsNullOrEmpty(usuario.ImagenPerfil)) //VER
-                            imgNuevoPerfil.ImageUrl = "~/ProfileImages/" + usuario.ImagenPerfil;
+                        if (!string.IsNullOrEmpty(usuario.ImagenPerfil)) 
+                            imgNuevoPerfil.ImageUrl = "~/Images/Profile/" + usuario.ImagenPerfil;
                     }
                 }
             }
@@ -48,16 +48,17 @@ namespace TPFinalNivel3_Vazquez
 
                 if (txtImagen.PostedFile.FileName != "")
                 {
-                    string ruta = Server.MapPath("./ProfileImages/"); ///VER
-                    txtImagen.PostedFile.SaveAs(ruta + "perfil-" + user.Id + ".jpg"); 
+                    string ruta = Server.MapPath("./Images/Profile/");
+                    txtImagen.PostedFile.SaveAs(ruta + "perfil-" + user.Id + ".jpg");
                     user.ImagenPerfil = "perfil-" + user.Id + ".jpg";
                 }
+
                 user.Nombre = txtNombre.Text;
                 user.Apellido = txtApellido.Text;
-                login.actualizar(user);
-                Image img = (Image)Master.FindControl("imgPerfil");
-                img.ImageUrl = "~/ProfileImages/" + user.ImagenPerfil; 
+                login.actualizarUsuario(user);
 
+                Image img = (Image)Master.FindControl("imgPerfil");
+                img.ImageUrl = "~/Images/Profile/" + user.ImagenPerfil;
             }
             catch (Exception ex)
             {

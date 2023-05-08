@@ -21,25 +21,18 @@ namespace TPFinalNivel3_Vazquez
             Response.Redirect("Default.aspx");
         }
 
+        // agregar las validaciones en el back porque sino en btn cancelar detecta los campos vacios
         protected void btnRegistro_Click(object sender, EventArgs e)
         {
-            try
-            {
                 Usuario user = new Usuario();
                 UsuarioMetodos usuario = new UsuarioMetodos();
 
                 user.Email = txtEmail.Text;
                 user.Pass = txtPassword.Text;
-                user.Id = usuario.insertarNuevo(user);//autologin
+                user.Id = usuario.registrarUsuario(user);
+                user.Admin = false;
                 Session.Add("sesionActiva", user);
                 Response.Redirect("Default.aspx");
-
-            }
-            catch (Exception ex)
-            {
-                Session.Add("error", ex.ToString());
-                Response.Redirect("Error.aspx", false);
-            }
         }
     }
 }
