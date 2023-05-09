@@ -14,23 +14,16 @@ namespace TPFinalNivel3_Vazquez
         public bool FiltroAvanzado { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (!(Seguridad.esAdmin(Session["sesionActiva"])))
-            //{
-            //    Session.Add("error", "Se requieren permisos de administrador para ingresar");
-            //    Response.Redirect("Error.aspx", false);
-            //}
-
             FiltroAvanzado = chkAvanzado.Checked;
             if (!IsPostBack)
             {
                 FiltroAvanzado = false;
                 ArticuloMetodos articulo = new ArticuloMetodos();
-                Session.Add("listaArticulos", articulo.listar());             
+                Session.Add("listaArticulos", articulo.listar());            
                 dgvArticulos.DataSource = Session["listaArticulos"];
                 dgvArticulos.DataBind();
             }
         }
-
         protected void dgvArticulos_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             dgvArticulos.PageIndex = e.NewPageIndex;
@@ -39,7 +32,7 @@ namespace TPFinalNivel3_Vazquez
         protected void dgvArticulos_SelectedIndexChanged(object sender, EventArgs e)
         {
             string id = dgvArticulos.SelectedDataKey.Value.ToString();
-            Response.Redirect("AgregarArticulo.aspx?id=" + id);
+            Response.Redirect("ModificarArticulo.aspx?id=" + id);
         }
 
         protected void filtro_TextChanged(object sender, EventArgs e)

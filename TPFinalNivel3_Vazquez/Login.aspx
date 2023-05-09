@@ -9,6 +9,10 @@
             background-color: palevioletred;
             color: white;
         }
+
+        p {
+            margin-bottom: 1px;
+        }
     </style>
     <div class="row">
         <div class="col-4">
@@ -22,6 +26,11 @@
                 <asp:TextBox runat="server" placeholder="*****" REQUIRED ID="txtPassword" CssClass="form-control" TextMode="Password" />
             </div>
             <asp:Button runat="server" Text="Ingresar" ID="btnIngresar" OnClick="btnIngresar_Click" CssClass="btn btn-ok" />
+            <div class="mb-3">
+                <br />
+                <p>¿No estas registrado?</p>
+                <a href="Registro.aspx">Registrarme</a>
+            </div>
         </div>
     </div>
 </asp:Content>

@@ -78,6 +78,7 @@
     <Content Include="Login.aspx" />
     <Content Include="MiPerfil.aspx" />
     <Content Include="MisFavoritos.aspx" />
+    <Content Include="ModificarArticulo.aspx" />
     <Content Include="Registro.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -161,6 +162,13 @@
     </Compile>
     <Compile Include="MisFavoritos.aspx.designer.cs">
       <DependentUpon>MisFavoritos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ModificarArticulo.aspx.cs">
+      <DependentUpon>ModificarArticulo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ModificarArticulo.aspx.designer.cs">
+      <DependentUpon>ModificarArticulo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registro.aspx.cs">

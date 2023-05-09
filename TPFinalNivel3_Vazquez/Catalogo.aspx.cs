@@ -33,11 +33,27 @@ namespace TPFinalNivel3_Vazquez
         protected void btnAgregarFavorito_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            int index = Convert.ToInt32(btn.CommandArgument);
-            var item = Repeater.Items[index];
+            int idArt = Convert.ToInt32(btn.CommandArgument);
+            UsuarioMetodos fav = new UsuarioMetodos();
 
-            // implementar lógica para agregar el elemento a la lista de Favoritos
-            // mostrar un mensaje de confirmación
+            if (Seguridad.sessionActiva(Session["sesionActiva"]))
+            {
+                Usuario user = (Usuario)Session["sesionActiva"];
+                int id = user.Id;
+
+                if (fav.AgregarFavorito(id, idArt))
+                {
+                    Response.Write("<script>alert('El artículo ha sido agregado a tus favoritos.');</script>");
+                }
+                else
+                {
+                    Response.Write("<script>alert('Articulo ya agregado a la lista');</script>");
+                }
+            }
+            else
+            {
+                Response.Write("<script>alert('Debe iniciar sesion para agregar a favoritos');</script>");
+            }
         }
 
         protected void btnVerListado_Click(object sender, EventArgs e)

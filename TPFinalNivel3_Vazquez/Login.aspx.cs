@@ -28,7 +28,7 @@ namespace TPFinalNivel3_Vazquez
                 if (metodos.Login(usuario))
                 {
                     Session.Add("sesionActiva", usuario);
-                    Response.Redirect("MiPerfil.aspx", false);
+                    Response.Redirect("Default.aspx", false);
                 }
                 else
                 {
@@ -36,7 +36,6 @@ namespace TPFinalNivel3_Vazquez
                     Response.Redirect("Error.aspx", false);
                 }
             }
-            catch (System.Threading.ThreadAbortException ex) { }
             catch (Exception ex)
             {
                 Session.Add("error", ex.ToString());

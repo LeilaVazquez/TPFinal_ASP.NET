@@ -9,7 +9,7 @@
             color: white;
         }      
     </style>
-    <h1>Hubo un problema</h1>
+    <h1>User o password incorrectos</h1>
     <br />
     <asp:Label Text="" ID="lblMensaje" runat="server" />
     <br />

@@ -24,12 +24,12 @@
             <div class="mb-3">
                 <label class="form-label">Nombre</label>
                 <asp:TextBox runat="server" ID="txtNombre" CssClass="form-control" />
-                <asp:RequiredFieldValidator CssClass="validacion" ErrorMessage="El nombre es requerido" ControlToValidate="txtNombre" runat="server" />
+                <asp:RequiredFieldValidator ID="rfv1" CssClass="validacion" ErrorMessage="El nombre es requerido" ControlToValidate="txtNombre" runat="server" />
             </div>
             <div class="mb-3">
                 <label class="form-label">Apellido</label>
                 <asp:TextBox runat="server" ClientIDMode="Static" ID="txtApellido" CssClass="form-control" />
-                 <asp:RequiredFieldValidator CssClass="validacion" ErrorMessage="El apellido es requerido" ControlToValidate="txtApellido" runat="server" />
+                 <asp:RequiredFieldValidator ID="rfv2" CssClass="validacion" ErrorMessage="El apellido es requerido" ControlToValidate="txtApellido" runat="server" />
             </div>
         </div>
         <div class="col-md-4">

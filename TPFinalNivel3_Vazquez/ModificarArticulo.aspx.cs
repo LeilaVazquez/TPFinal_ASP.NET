@@ -9,11 +9,14 @@ using metodos;
 
 namespace TPFinalNivel3_Vazquez
 {
-    public partial class AgregarArticulo : System.Web.UI.Page
+    public partial class ModificarArticulo : System.Web.UI.Page
     {
+        public bool ConfirmaEliminacion { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+
             txtId.Enabled = false;
+            ConfirmaEliminacion = false;
             try
             {
                 if (!IsPostBack)
@@ -59,6 +62,32 @@ namespace TPFinalNivel3_Vazquez
                 Response.Redirect("Error.aspx", false);
             }
         }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Listado.aspx");
+        }
+
+        protected void btnEliminar_Click(object sender, EventArgs e)
+        {
+            ConfirmaEliminacion = true;
+        }
+
+        protected void btnConfirmarEliminacion_Click(object sender, EventArgs e)
+        {
+            if (ckConfirmaEliminacion.Checked)
+            {
+                ArticuloMetodos articulo = new ArticuloMetodos();
+                articulo.eliminarArticulo(int.Parse(txtId.Text));
+                Response.Redirect("Listado.aspx");
+            }
+        }
+
+        protected void txtImagenUrl_TextChanged(object sender, EventArgs e)
+        {
+            imgArticulo.ImageUrl = txtImagenUrl.Text;
+        }
+
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
             try
@@ -76,8 +105,8 @@ namespace TPFinalNivel3_Vazquez
                 nuevo.Marca.Id = int.Parse(ddlMarca.SelectedValue);
                 nuevo.Categoria = new Categoria();
                 nuevo.Categoria.Id = int.Parse(ddlCategoria.SelectedValue);
-                articulo.agregarArticulo(nuevo);
-
+                nuevo.Id = int.Parse(txtId.Text);
+                articulo.modificarArticulo(nuevo);
 
             }
             catch (Exception ex)
@@ -88,15 +117,5 @@ namespace TPFinalNivel3_Vazquez
 
             Response.Redirect("Listado.aspx", false);
         }
-        protected void txtImagenUrl_TextChanged(object sender, EventArgs e)
-        {
-            imgArticulo.ImageUrl = txtImagenUrl.Text;
-        }
-
-        protected void btnCancelar_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Listado.aspx");
-        }
-
     }
 }

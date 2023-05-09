@@ -39,10 +39,6 @@ namespace TPFinalNivel3_Vazquez
         {
             try
             {
-                /*Page.Validate(); //ejecuta las validaciones q tengo configuradas en la pantalla
-                if (!Page.IsValid)
-                    return;*/
-
                 UsuarioMetodos login = new UsuarioMetodos();
                 Usuario user = (Usuario)Session["sesionActiva"];
 

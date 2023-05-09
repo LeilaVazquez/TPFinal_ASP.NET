@@ -21,7 +21,6 @@ namespace TPFinalNivel3_Vazquez
             Response.Redirect("Default.aspx");
         }
 
-        // agregar las validaciones en el back porque sino en btn cancelar detecta los campos vacios
         protected void btnRegistro_Click(object sender, EventArgs e)
         {
                 Usuario user = new Usuario();

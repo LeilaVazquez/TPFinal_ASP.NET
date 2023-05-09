@@ -1,9 +1,8 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="AgregarArticulo.aspx.cs" Inherits="TPFinalNivel3_Vazquez.AgregarArticulo" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="ModificarArticulo.aspx.cs" Inherits="TPFinalNivel3_Vazquez.ModificarArticulo" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
      <style>
         .btn-ok {
             background-color: palevioletred;
@@ -18,13 +17,11 @@
             </div>
             <div class="md-3">
                 <label for="txtCodigo" class="form-label">Código:</label>
-                <asp:TextBox runat="server" ID="txtCodigo" CssClass="form-control" />
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Ingrese un código" ControlToValidate="txtCodigo"></asp:RequiredFieldValidator>
+                <asp:TextBox runat="server" ID="txtCodigo" CssClass="form-control" />         
             </div>
             <div class="md-3">
                 <label for="txtNombre" class="form-label">Nombre:</label>
                 <asp:TextBox runat="server" ID="txtNombre" CssClass="form-control" />
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Ingrese un nombre" ControlToValidate="txtNombre"></asp:RequiredFieldValidator>
             </div>
             <div class="md-3">
                 <label for="ddlMarca" class="form-label">Marca:</label>
@@ -37,7 +34,7 @@
             <br />
             <div class="md-3">
                 <asp:Button Text="Aceptar" ID="btnAceptar" CssClass="btn btn-ok" OnClick="btnAceptar_Click" runat="server" />
-                <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn" OnClick="btnCancelar_Click" CausesValidation="false" />
+                <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn" OnClick="btnCancelar_Click" />
  
             </div>
         </div>
@@ -68,6 +65,19 @@
     <div class="row">
         <div class="col-6">
             <asp:UpdatePanel ID="UpdatePanel2" runat="server"> 
+                <contenttemplate>
+                    <div class="mb-3">
+                        <br />
+                        <asp:Button Text="Eliminar" ID="btnEliminar" OnClick="btnEliminar_Click" CssClass="btn btn-danger" runat="server" />
+                    </div>
+                    <%if (ConfirmaEliminacion)
+                        { %>
+                    <div class="mb-3">
+                        <asp:CheckBox Text="Confirmar Eliminación" ID="ckConfirmaEliminacion" runat="server" />
+                        <asp:Button Text="Eliminar" ID="btnConfirmarEliminacion" OnClick="btnConfirmarEliminacion_Click" CssClass="btn btn-outline-danger" runat="server" />
+                    </div>
+                    <% } %>
+                </contenttemplate>
             </asp:UpdatePanel> 
         </div>
     </div>

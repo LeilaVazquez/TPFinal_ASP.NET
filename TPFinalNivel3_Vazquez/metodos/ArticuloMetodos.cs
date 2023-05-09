@@ -69,7 +69,7 @@ namespace metodos
         public List<Articulos> listarxId(string id)
         {
             List<Articulos> art = new List<Articulos>();
-            
+
             try
             {
                 AccesoDatos datos = new AccesoDatos();
@@ -284,6 +284,43 @@ namespace metodos
                     lista.Add(aux);
                 }
                 return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+      
+        public List<Articulos> listarFavoritos(int idUser)
+        {
+            List<Articulos> art = new List<Articulos>();
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                string consulta = "SELECT  A.Id, A.Codigo, A.Nombre, A.Descripcion, M.Descripcion as Marca, C.Descripcion as Categoria, A.Precio, A.IdMarca, A.IdCategoria FROM ARTICULOS A INNER JOIN CATEGORIAS C ON C.Id = A.IdCategoria INNER JOIN MARCAS M ON M.Id = A.IdMarca INNER JOIN FAVORITOS F ON F.IdArticulo = A.Id WHERE F.IdUser = @idUsuario";
+                datos.setearConsulta(consulta);
+                datos.setearParametro("@idUsuario", idUser);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Articulos aux2 = new Articulos();
+
+                    aux2.Id = (int)datos.Lector["Id"];
+                    aux2.Codigo = (string)datos.Lector["Codigo"];
+                    aux2.Nombre = (string)datos.Lector["Nombre"];
+                    aux2.Descripcion = (string)datos.Lector["Descripcion"];
+                    aux2.Marca = new Marca();
+                    aux2.Marca.Id = (int)datos.Lector["IdMarca"];
+                    aux2.Marca.Descrip = (string)datos.Lector["Marca"];
+                    aux2.Categoria = new Categoria();
+                    aux2.Categoria.Id = (int)datos.Lector["IdCategoria"];
+                    aux2.Categoria.Descrip = (string)datos.Lector["Categoria"];
+                    aux2.Precio = (decimal)datos.Lector["Precio"];
+
+                    art.Add(aux2);
+                }
+                return art;
             }
             catch (Exception ex)
             {

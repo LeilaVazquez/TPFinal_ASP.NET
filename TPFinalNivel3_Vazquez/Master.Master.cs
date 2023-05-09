@@ -35,7 +35,7 @@ namespace TPFinalNivel3_Vazquez
             }
 
            
-            if (!(Page is Login || Page is Registro || Page is Default || Page is Catalogo || Page is Contacto || Page is Detalle || Page is Listado))
+            if (!(Page is Login || Page is Registro || Page is Default || Page is Catalogo || Page is Contacto || Page is Detalle || Page is Listado || Page is Error))
             {
                 if (!Seguridad.sessionActiva(Session["sesionActiva"]))
                     Response.Redirect("Login.aspx", false);
