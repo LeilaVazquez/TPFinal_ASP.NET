@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace dominio
 {
-    public enum TipoUsuario
-    {
-        NORMAL = 1,
-        ADMIN = 2
-    }
+    //metodo que genere el obj usuario en la DB con solo 2 valores, por defecto ponerlos en 
+    //id - email - pass  admin:false
+    //public enum TipoUsuario
+    //{
+    //    NORMAL = 1,
+    //    ADMIN = 2
+    //}
     public class Usuario
     {
         public int Id { get; set; }
@@ -21,7 +23,7 @@ namespace dominio
         public string Pass { get; set; }
         public DateTime FechaNacimiento { get; set; }
         public string ImagenPerfil { get; set; }
-        public TipoUsuario TipoUsuario { get; set; }
+        //public TipoUsuario TipoUsuario { get; set; }
         public bool Admin { get; set; }
 
 

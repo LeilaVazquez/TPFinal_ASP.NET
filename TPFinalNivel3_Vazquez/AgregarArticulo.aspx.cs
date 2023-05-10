@@ -77,8 +77,6 @@ namespace TPFinalNivel3_Vazquez
                 nuevo.Categoria = new Categoria();
                 nuevo.Categoria.Id = int.Parse(ddlCategoria.SelectedValue);
                 articulo.agregarArticulo(nuevo);
-
-
             }
             catch (Exception ex)
             {
@@ -92,7 +90,6 @@ namespace TPFinalNivel3_Vazquez
         {
             imgArticulo.ImageUrl = txtImagenUrl.Text;
         }
-
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
             Response.Redirect("Listado.aspx");

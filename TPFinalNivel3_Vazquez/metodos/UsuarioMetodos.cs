@@ -118,7 +118,6 @@ namespace metodos
             }
             return true;
         }
-
         public void EliminarFavorito(string id)
         {
             AccesoDatos datos = new AccesoDatos();

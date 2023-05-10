@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using dominio;
 using metodos;
 
+
 namespace TPFinalNivel3_Vazquez
 {
     public partial class Catalogo : System.Web.UI.Page
@@ -43,17 +44,21 @@ namespace TPFinalNivel3_Vazquez
 
                 if (fav.AgregarFavorito(id, idArt))
                 {
-                    Response.Write("<script>alert('El artículo ha sido agregado a tus favoritos.');</script>");
+                    ClientScript.RegisterClientScriptBlock(this.GetType(),"alert",
+                        "swal('Listo!', 'Artículo agregado con éxito!', 'success')", true);
                 }
                 else
                 {
-                    Response.Write("<script>alert('Articulo ya agregado a la lista');</script>");
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                       "swal(';)', 'Artículo ya agregado a la lista', 'info')", true);
                 }
             }
             else
             {
-                Response.Write("<script>alert('Debe iniciar sesion para agregar a favoritos');</script>");
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
+                       "swal(':(', 'Debe iniciar sesion para agregarlo', 'warning')", true);
             }
+
         }
 
         protected void btnVerListado_Click(object sender, EventArgs e)

@@ -80,6 +80,7 @@
     <Content Include="MisFavoritos.aspx" />
     <Content Include="ModificarArticulo.aspx" />
     <Content Include="Registro.aspx" />
+    <Content Include="CATALOGO_WEB_DB.sql" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

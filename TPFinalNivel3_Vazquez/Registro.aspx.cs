@@ -25,6 +25,7 @@ namespace TPFinalNivel3_Vazquez
         {
                 Usuario user = new Usuario();
                 UsuarioMetodos usuario = new UsuarioMetodos();
+                //configurar permisos de ADMIN
 
                 user.Email = txtEmail.Text;
                 user.Pass = txtPassword.Text;

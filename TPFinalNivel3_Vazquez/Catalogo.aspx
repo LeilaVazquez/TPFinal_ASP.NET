@@ -11,20 +11,21 @@
             height: 40px;
             border: none;
             float: right;
-        } 
+        }
 
         .btn-ok {
-            background-color:palevioletred;
+            background-color: palevioletred;
             color: white;
         }
+
         .btn-list {
-            background-color:lightpink;
-            color:#c5217a;
+            background-color: lightpink;
+            color: #c5217a;
         }
     </style>
     <h1>Catálogo</h1>
     <br />
-    <asp:Button Text="Ver Listado" ID="btnVerListado" CssClass="btn btn-list" runat="server"  OnClick="btnVerListado_Click"/>
+    <asp:Button Text="Ver Listado" ID="btnVerListado" CssClass="btn btn-list" runat="server" OnClick="btnVerListado_Click" />
     <br />
     <br />
     <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -37,7 +38,7 @@
                             <h5 class="card-title"><%#Eval("Nombre") %></h5>
                             <p class="card-text"><%#Eval("Precio") %></p>
                             <asp:Button ID="btnVermas" runat="server" Text="Ver más" CssClass="btn btn-ok" CommandArgument='<%#Eval("Id") %>' CommandName="ArticuloId" OnClick="btnVermas_Click" />
-                            <asp:Button ID="Fav" runat="server" Title="Agregar a Favoritos" CommandArgument='<%#Eval("Id")%>' OnClick="btnAgregarFavorito_Click" CssClass="icono-favorito" />
+                            <asp:Button ID="Fav" runat="server" Title="Agregar a Favoritos" Text="" CommandArgument='<%#Eval("Id")%>' OnClick="btnAgregarFavorito_Click" CssClass="icono-favorito"/>
                         </div>
                     </div>
                 </div>
