@@ -80,7 +80,6 @@ namespace metodos
         public bool AgregarFavorito(int usuario, int art)
         {
             AccesoDatos datos = new AccesoDatos();
-
             try
             {
                 datos.setearConsulta("Select COUNT (*) FROM FAVORITOS WHERE idUser = @idUser AND idArticulo = @idArticulo");

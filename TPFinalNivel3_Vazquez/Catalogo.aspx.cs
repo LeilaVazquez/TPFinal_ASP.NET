@@ -24,13 +24,11 @@ namespace TPFinalNivel3_Vazquez
                 Repeater.DataBind();
             }
         }
-
         protected void btnVermas_Click(object sender, EventArgs e)
         {
             string valor = ((Button)sender).CommandArgument;
             Response.Redirect("Detalle.aspx?Id=" + valor);
         }
-
         protected void btnAgregarFavorito_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
@@ -44,21 +42,17 @@ namespace TPFinalNivel3_Vazquez
 
                 if (fav.AgregarFavorito(id, idArt))
                 {
-                    ClientScript.RegisterClientScriptBlock(this.GetType(),"alert",
-                        "swal('Listo!', 'Artículo agregado con éxito!', 'success')", true);
+                    ClientScript.RegisterClientScriptBlock(this.GetType(),"alert", "swal('Listo!', 'Artículo agregado con éxito!', 'success')", true);
                 }
                 else
                 {
-                    ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
-                       "swal(';)', 'Artículo ya agregado a la lista', 'info')", true);
+                    ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", "swal(';)', 'Artículo ya agregado a la lista', 'info')", true);
                 }
             }
             else
             {
-                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert",
-                       "swal(':(', 'Debe iniciar sesion para agregarlo', 'warning')", true);
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "alert", "swal(':(', 'Debe iniciar sesion para agregarlo', 'warning')", true);
             }
-
         }
 
         protected void btnVerListado_Click(object sender, EventArgs e)

@@ -15,7 +15,6 @@ namespace TPFinalNivel3_Vazquez
         {
             ValidationSettings.UnobtrusiveValidationMode = UnobtrusiveValidationMode.None;
         }
-
         protected void btnIngresar_Click(object sender, EventArgs e)
         {
             Usuario usuario = new Usuario();

@@ -9,7 +9,6 @@
             background-color: palevioletred;
             color: white;
         }
-
         p {
             margin-bottom: 1px;
         }

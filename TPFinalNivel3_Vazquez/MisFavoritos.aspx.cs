@@ -28,19 +28,15 @@ namespace TPFinalNivel3_Vazquez
                 {
                     Response.Redirect("Login.aspx", false);
                 }
-
             }
         }
-
         protected void dgvMisFavoritos_SelectedIndexChanged(object sender, EventArgs e)
         {
             UsuarioMetodos usuario = new UsuarioMetodos();
             string id = dgvMisFavoritos.SelectedDataKey.Value.ToString();
             usuario.EliminarFavorito(id);
             Response.Redirect(Request.RawUrl);
-
         }
-
         protected void dgvMisFavoritos_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             dgvMisFavoritos.PageIndex = e.NewPageIndex;

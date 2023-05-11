@@ -20,7 +20,6 @@
             margin-left: 60px;
             font-size: 1.5rem;
         }
-
         .py-5 {
             padding-top: 5rem !important;
             padding-bottom: 24rem !important;
@@ -28,8 +27,7 @@
     </style>
     <div class="row py-5 banner">
         <div class="col">
-            <a href="Catalogo.aspx" class="btn btn-def">Catálogo</a>
-       
+            <a href="Catalogo.aspx" class="btn btn-def">Catálogo</a>   
         </div>  
         <div class="col-sm-12 col-md-12 col-lg-12 banner">
         </div>
