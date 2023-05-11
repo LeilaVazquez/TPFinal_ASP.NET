@@ -55,8 +55,15 @@
                         <asp:TextBox runat="server" ID="txtImagenUrl" CssClass="form-control"
                             AutoPostBack="true" OnTextChanged="txtImagenUrl_TextChanged" />
                     </div>
-                    <asp:Image class="img-thumbnail" onerror="this.src='Images/default.png'" ImageUrl="https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png" runat="server" ID="imgArticulo" Width="60%" />
-                </contenttemplate>
+                    <%if (txtImagenUrl.Text == "")
+                        {%>
+                    <asp:Image class="img-thumbnail" src="https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png" runat="server" ID="imgArticuloError" Width="60%" />
+                     <%}
+                     else 
+                       {%>
+                     <asp:Image class="img-thumbnail" onerror="this.src='Images/default.png'" runat="server" ID="imgArticulo" Width="60%" />
+                     <% } %>
+                    </contenttemplate>
             </asp:UpdatePanel>
             <div>
             </div>

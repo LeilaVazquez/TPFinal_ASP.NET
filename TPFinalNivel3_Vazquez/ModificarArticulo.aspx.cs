@@ -14,6 +14,11 @@ namespace TPFinalNivel3_Vazquez
         public bool ConfirmaEliminacion { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!(Seguridad.esAdmin(Session["sesionActiva"])))
+            {
+                Session.Add("error", "Se requieren permisos de administrador para ingresar");
+                Response.Redirect("Error.aspx", false);
+            }
 
             txtId.Enabled = false;
             ConfirmaEliminacion = false;
@@ -36,7 +41,6 @@ namespace TPFinalNivel3_Vazquez
                     ddlMarca.DataValueField = "Id";
                     ddlMarca.DataTextField = "Descrip";
                     ddlMarca.DataBind();
-
                 }
 
                 string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
@@ -44,13 +48,20 @@ namespace TPFinalNivel3_Vazquez
                 {
                     ArticuloMetodos articulo = new ArticuloMetodos();
                     Articulos seleccionado = (articulo.listar(id))[0];
-
                     txtId.Text = id;
                     txtCodigo.Text = seleccionado.Codigo;
                     txtNombre.Text = seleccionado.Nombre;
                     txtDescripcion.Text = seleccionado.Descripcion;
                     txtPrecio.Text = seleccionado.Precio.ToString();
                     txtImagenUrl.Text = seleccionado.ImagenUrl;
+                    if (txtImagenUrl.Text == "")
+                    {
+                        seleccionado.ImagenUrl = null;
+                    }
+                    else
+                    {
+                        seleccionado.ImagenUrl = txtImagenUrl.Text;
+                    }
                     ddlMarca.SelectedValue = seleccionado.Marca.Id.ToString();
                     ddlCategoria.SelectedValue = seleccionado.Categoria.Id.ToString();
                     txtImagenUrl_TextChanged(sender, e);
@@ -62,17 +73,14 @@ namespace TPFinalNivel3_Vazquez
                 Response.Redirect("Error.aspx", false);
             }
         }
-
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
             Response.Redirect("Listado.aspx");
         }
-
         protected void btnEliminar_Click(object sender, EventArgs e)
         {
             ConfirmaEliminacion = true;
         }
-
         protected void btnConfirmarEliminacion_Click(object sender, EventArgs e)
         {
             if (ckConfirmaEliminacion.Checked)
@@ -82,39 +90,42 @@ namespace TPFinalNivel3_Vazquez
                 Response.Redirect("Listado.aspx");
             }
         }
-
         protected void txtImagenUrl_TextChanged(object sender, EventArgs e)
         {
             imgArticulo.ImageUrl = txtImagenUrl.Text;
         }
-
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
             try
             {
-                Articulos nuevo = new Articulos();
+                Articulos seleccionado = new Articulos();
                 ArticuloMetodos articulo = new ArticuloMetodos();
 
-                nuevo.Codigo = txtCodigo.Text;
-                nuevo.Nombre = txtNombre.Text;
-                nuevo.Precio = decimal.Parse(txtPrecio.Text);
-                nuevo.Descripcion = txtDescripcion.Text;
-                nuevo.ImagenUrl = txtImagenUrl.Text;
-
-                nuevo.Marca = new Marca();
-                nuevo.Marca.Id = int.Parse(ddlMarca.SelectedValue);
-                nuevo.Categoria = new Categoria();
-                nuevo.Categoria.Id = int.Parse(ddlCategoria.SelectedValue);
-                nuevo.Id = int.Parse(txtId.Text);
-                articulo.modificarArticulo(nuevo);
-
+                seleccionado.Codigo = txtCodigo.Text;
+                seleccionado.Nombre = txtNombre.Text;
+                seleccionado.Precio = decimal.Parse(txtPrecio.Text);
+                seleccionado.Descripcion = txtDescripcion.Text;
+                seleccionado.ImagenUrl = txtImagenUrl.Text;
+                if (txtImagenUrl.Text == "")
+                {
+                    seleccionado.ImagenUrl = null;
+                }
+                else
+                {
+                    seleccionado.ImagenUrl = txtImagenUrl.Text;
+                }
+                seleccionado.Marca = new Marca();
+                seleccionado.Marca.Id = int.Parse(ddlMarca.SelectedValue);
+                seleccionado.Categoria = new Categoria();
+                seleccionado.Categoria.Id = int.Parse(ddlCategoria.SelectedValue);
+                seleccionado.Id = int.Parse(txtId.Text);
+                articulo.modificarArticulo(seleccionado);
             }
             catch (Exception ex)
             {
                 Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
             }
-
             Response.Redirect("Listado.aspx", false);
         }
     }

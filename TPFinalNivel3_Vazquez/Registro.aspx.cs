@@ -20,13 +20,11 @@ namespace TPFinalNivel3_Vazquez
         {
             Response.Redirect("Default.aspx");
         }
-
         protected void btnRegistro_Click(object sender, EventArgs e)
         {
                 Usuario user = new Usuario();
                 UsuarioMetodos usuario = new UsuarioMetodos();
-                //configurar permisos de ADMIN
-
+               
                 user.Email = txtEmail.Text;
                 user.Pass = txtPassword.Text;
                 user.Id = usuario.registrarUsuario(user);

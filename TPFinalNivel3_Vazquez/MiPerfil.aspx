@@ -35,8 +35,7 @@
         <div class="col-md-4">
             <div class="mb-3">
                 <label class="form-label">Imagen Perfil</label>
-                <input type="file" id="txtImagen" runat="server" class="form-control" accept=".jpg,.png,.jpeg"/>
-                
+                <input type="file" id="txtImagen" runat="server" class="form-control" accept=".jpg,.png,.jpeg"/>           
             </div>
             <asp:Image ImageUrl="https://www.chanchao.com.tw/images/default.jpg" runat="server" ID="imgNuevoPerfil" CssClass="img-fluid mb-3" />
         </div>

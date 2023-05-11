@@ -18,7 +18,6 @@ namespace metodos
             SqlConnection conexion = new SqlConnection();
             SqlCommand comando = new SqlCommand();
             SqlDataReader lector;
-
             try
             {
                 conexion.ConnectionString = "server=.\\SQLEXPRESS; database=CATALOGO_WEB_DB; integrated security=true";
@@ -29,7 +28,6 @@ namespace metodos
                     comando.CommandText += " and A.id = " + id;
                 }
                 comando.Connection = conexion;
-
                 conexion.Open();
                 lector = comando.ExecuteReader();
 
@@ -40,8 +38,6 @@ namespace metodos
                     aux.Codigo = (string)lector["Codigo"];
                     aux.Nombre = (string)lector["Nombre"];
                     aux.Descripcion = (string)lector["Descripcion"];
-
-
                     if (!(lector["ImagenUrl"] is DBNull))
                         aux.ImagenUrl = (string)lector["ImagenUrl"];
 
@@ -52,7 +48,6 @@ namespace metodos
                     aux.Categoria.Id = (int)lector["IdCategoria"];
                     aux.Categoria.Descrip = (string)lector["Categoria"];
                     aux.Precio = (decimal)lector["Precio"];
-
                     lista.Add(aux);
                 }
                 conexion.Close();
@@ -62,14 +57,10 @@ namespace metodos
             {
                 throw ex;
             }
-
-
         }
-
         public List<Articulos> listarxId(string id)
         {
             List<Articulos> art = new List<Articulos>();
-
             try
             {
                 AccesoDatos datos = new AccesoDatos();
@@ -77,7 +68,6 @@ namespace metodos
                 datos.setearConsulta(consulta);
                 datos.setearParametro("@id", id);
                 datos.ejecutarLectura();
-
                 while (datos.Lector.Read())
                 {
                     Articulos aux2 = new Articulos();
@@ -86,7 +76,6 @@ namespace metodos
                     aux2.Codigo = (string)datos.Lector["Codigo"];
                     aux2.Nombre = (string)datos.Lector["Nombre"];
                     aux2.Descripcion = (string)datos.Lector["Descripcion"];
-
                     if (!(datos.Lector["ImagenUrl"] is DBNull))
                         aux2.ImagenUrl = (string)datos.Lector["ImagenUrl"];
 
@@ -97,7 +86,6 @@ namespace metodos
                     aux2.Categoria.Id = (int)datos.Lector["IdCategoria"];
                     aux2.Categoria.Descrip = (string)datos.Lector["Categoria"];
                     aux2.Precio = (decimal)datos.Lector["Precio"];
-
                     art.Add(aux2);
                 }
                 return art;
@@ -107,17 +95,15 @@ namespace metodos
                 throw ex;
             }
         }
-
         public void agregarArticulo(Articulos nuevo)
         {
             AccesoDatos datos = new AccesoDatos();
-
             try
             {
                 datos.setearConsulta("Insert into ARTICULOS (Codigo, Nombre, Descripcion, Precio, IdMarca, IdCategoria, ImagenUrl) values ('" + nuevo.Codigo + "','" + nuevo.Nombre + "','" + nuevo.Descripcion + "','" + nuevo.Precio + "',@idMarca, @idCategoria, @ImagenUrl)");
                 datos.setearParametro("@idMarca", nuevo.Marca.Id);
                 datos.setearParametro("@idCategoria", nuevo.Categoria.Id);
-                datos.setearParametro("@ImagenUrl", nuevo.ImagenUrl);
+                datos.setearParametro("@ImagenUrl", (object)nuevo.ImagenUrl ?? DBNull.Value);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -129,23 +115,21 @@ namespace metodos
                 datos.cerrarConexion();
             }
         }
-
         public void modificarArticulo(Articulos art)
         {
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("update ARTICULOS set Codigo = @codigo, Nombre = @nombre, Descripcion = @descrip, IdMarca = @idMarca, IdCategoria = @idCat, ImagenUrl = @imagen, Precio = @precio Where Id = @id");
+                datos.setearConsulta("update ARTICULOS set Codigo = @codigo, Nombre = @nombre, Descripcion = @descrip, IdMarca = @idMarca, IdCategoria = @idCat, ImagenUrl = @ImagenUrl, Precio = @precio Where Id = @id");
                 datos.setearParametro("@codigo", art.Codigo);
                 datos.setearParametro("@nombre", art.Nombre);
                 datos.setearParametro("@descrip", art.Descripcion);
                 datos.setearParametro("@idMarca", art.Marca.Id);
                 datos.setearParametro("@idCat", art.Categoria.Id);
-                datos.setearParametro("@imagen", art.ImagenUrl);
+                datos.setearParametro("@ImagenUrl", (object)art.ImagenUrl ?? DBNull.Value);
                 datos.setearParametro("@precio", art.Precio);
                 datos.setearParametro("@id", art.Id);
                 datos.ejecutarAccion();
-
             }
             catch (Exception ex)
             {
@@ -155,12 +139,9 @@ namespace metodos
             {
                 datos.cerrarConexion();
             }
-
         }
-
         public void eliminarArticulo(int id)
         {
-
             try
             {
                 AccesoDatos datos = new AccesoDatos();
@@ -177,7 +158,6 @@ namespace metodos
         {
             List<Articulos> lista = new List<Articulos>();
             AccesoDatos datos = new AccesoDatos();
-
             try
             {
                 string consulta = "Select A.Codigo, A.Nombre, A.Descripcion, M.Descripcion as Marca, A.ImagenUrl, C.Descripcion as Categoria, A.Precio, A.IdMarca, A.IdCategoria, A.Id From ARTICULOS A, CATEGORIAS C, MARCAS M Where M.Id = A.IdMarca AND C.Id = A.IdCategoria AND ";
@@ -257,10 +237,8 @@ namespace metodos
                             break;
                     }
                 }
-
                 datos.setearConsulta(consulta);
                 datos.ejecutarLectura();
-
                 while (datos.Lector.Read())
                 {
                     Articulos aux = new Articulos();
@@ -268,8 +246,6 @@ namespace metodos
                     aux.Codigo = (string)datos.Lector["Codigo"];
                     aux.Nombre = (string)datos.Lector["Nombre"];
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
-
-
                     if (!(datos.Lector["ImagenUrl"] is DBNull))
                         aux.ImagenUrl = (string)datos.Lector["ImagenUrl"];
 
@@ -280,7 +256,6 @@ namespace metodos
                     aux.Categoria.Id = (int)datos.Lector["IdCategoria"];
                     aux.Categoria.Descrip = (string)datos.Lector["Categoria"];
                     aux.Precio = (decimal)datos.Lector["Precio"];
-
                     lista.Add(aux);
                 }
                 return lista;
@@ -289,8 +264,7 @@ namespace metodos
             {
                 throw ex;
             }
-        }
-      
+        }     
         public List<Articulos> listarFavoritos(int idUser)
         {
             List<Articulos> art = new List<Articulos>();
@@ -301,11 +275,9 @@ namespace metodos
                 datos.setearConsulta(consulta);
                 datos.setearParametro("@idUsuario", idUser);
                 datos.ejecutarLectura();
-
                 while (datos.Lector.Read())
                 {
                     Articulos aux2 = new Articulos();
-
                     aux2.Id = (int)datos.Lector["Id"];
                     aux2.Codigo = (string)datos.Lector["Codigo"];
                     aux2.Nombre = (string)datos.Lector["Nombre"];
@@ -317,7 +289,6 @@ namespace metodos
                     aux2.Categoria.Id = (int)datos.Lector["IdCategoria"];
                     aux2.Categoria.Descrip = (string)datos.Lector["Categoria"];
                     aux2.Precio = (decimal)datos.Lector["Precio"];
-
                     art.Add(aux2);
                 }
                 return art;
@@ -327,6 +298,5 @@ namespace metodos
                 throw ex;
             }
         }
-
     }
 }

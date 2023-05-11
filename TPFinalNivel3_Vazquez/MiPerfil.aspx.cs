@@ -25,16 +25,16 @@ namespace TPFinalNivel3_Vazquez
                         txtNombre.Text = usuario.Nombre;
                         txtApellido.Text = usuario.Apellido;
                         if (!string.IsNullOrEmpty(usuario.ImagenPerfil)) 
-                            imgNuevoPerfil.ImageUrl = "~/Images/Profile/" + usuario.ImagenPerfil;
+                            imgNuevoPerfil.ImageUrl = "~/Images/Profile/" + usuario.ImagenPerfil + "?v=" + DateTime.Now.Ticks.ToString(); //usa la imagen actualizada en lugar de la cache
                     }
                 }
             }
             catch (Exception ex)
             {
                 Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
             }
         }
-
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             try
@@ -48,13 +48,11 @@ namespace TPFinalNivel3_Vazquez
                     txtImagen.PostedFile.SaveAs(ruta + "perfil-" + user.Id + ".jpg");
                     user.ImagenPerfil = "perfil-" + user.Id + ".jpg";
                 }
-
                 user.Nombre = txtNombre.Text;
                 user.Apellido = txtApellido.Text;
                 login.actualizarUsuario(user);
-
                 Image img = (Image)Master.FindControl("imgPerfil");
-                img.ImageUrl = "~/Images/Profile/" + user.ImagenPerfil;
+                img.ImageUrl = "~/Images/Profile/" + user.ImagenPerfil + "?v=" + DateTime.Now.Ticks.ToString();
             }
             catch (Exception ex)
             {

@@ -30,7 +30,6 @@ namespace metodos
         {
             comando.CommandType = System.Data.CommandType.StoredProcedure;
             comando.CommandText = sp;
-
         }
         public void ejecutarLectura()
         {
@@ -42,7 +41,6 @@ namespace metodos
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
@@ -66,10 +64,8 @@ namespace metodos
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
-
         }
         public int ejecutarAccionScalar()
         {
@@ -81,7 +77,6 @@ namespace metodos
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
 

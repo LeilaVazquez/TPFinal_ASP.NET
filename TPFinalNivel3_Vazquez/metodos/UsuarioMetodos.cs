@@ -30,7 +30,6 @@ namespace metodos
                         usuario.Nombre = (string)datos.Lector["nombre"];
                     if (!(datos.Lector["apellido"] is DBNull))
                         usuario.Apellido = (string)datos.Lector["apellido"];
-
                     return true;
                 }
                 return false;
@@ -84,7 +83,6 @@ namespace metodos
 
             try
             {
-
                 datos.setearConsulta("Select COUNT (*) FROM FAVORITOS WHERE idUser = @idUser AND idArticulo = @idArticulo");
                 datos.setearParametro("@idUser", usuario);
                 datos.setearParametro("@idArticulo", art);
@@ -99,14 +97,11 @@ namespace metodos
                         return false;
                     }
                 }
-
                 datos = new AccesoDatos();
                 datos.setearConsulta("Insert into Favoritos (IdUser, IdArticulo) values (@IdUser, @IdArticulo)");
                 datos.setearParametro("@IdUser", usuario);
                 datos.setearParametro("@idArticulo", art);
                 datos.ejecutarAccion();
-
-
             }
             catch (Exception ex)
             {
@@ -121,7 +116,6 @@ namespace metodos
         public void EliminarFavorito(string id)
         {
             AccesoDatos datos = new AccesoDatos();
-
             try
             {
                 datos.setearConsulta("DELETE from FAVORITOS where IdArticulo = @idArticulo");
@@ -130,7 +124,6 @@ namespace metodos
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }

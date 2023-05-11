@@ -21,20 +21,18 @@ namespace TPFinalNivel3_Vazquez
 
                 if (!string.IsNullOrEmpty(user.ImagenPerfil))
                 {
-                    imgPerfil.ImageUrl = "~/Images/Profile/" + user.ImagenPerfil;
+                    imgPerfil.ImageUrl = "~/Images/Profile/" + user.ImagenPerfil + "?v=" + DateTime.Now.Ticks.ToString();
                 }
                 else
                 {
                     imgPerfil.ImageUrl = "~/Images/perfil.png";
                 }
-
             }
             else
             {
                 imgPerfil.ImageUrl = "~/Images/perfil.png";
             }
-
-           
+          
             if (!(Page is Login || Page is Registro || Page is Default || Page is Catalogo || Page is Contacto || Page is Detalle || Page is Listado || Page is Error))
             {
                 if (!Seguridad.sessionActiva(Session["sesionActiva"]))
@@ -45,7 +43,7 @@ namespace TPFinalNivel3_Vazquez
                     lblUser.Text = user.Nombre;
                     if (!string.IsNullOrEmpty(user.ImagenPerfil))
                     {
-                        imgPerfil.ImageUrl = "~/Images/Profile/" + user.ImagenPerfil;
+                        imgPerfil.ImageUrl = "~/Images/Profile/" + user.ImagenPerfil + "?v=" + DateTime.Now.Ticks.ToString();
                     }
                     else
                     {

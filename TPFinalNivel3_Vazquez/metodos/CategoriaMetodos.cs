@@ -13,7 +13,6 @@ namespace metodos
         {
             List<Categoria> categorias = new List<Categoria>();
             AccesoDatos datos = new AccesoDatos();
-
             try
             {
                 datos.setearConsulta("Select Id, Descripcion from CATEGORIAS");
@@ -36,10 +35,7 @@ namespace metodos
             finally
             {
                 datos.cerrarConexion();
-            }
-            
+            }          
         }
-
-
     }
 }

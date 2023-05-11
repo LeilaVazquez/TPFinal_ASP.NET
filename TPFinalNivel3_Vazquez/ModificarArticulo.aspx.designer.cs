@@ -132,6 +132,15 @@ namespace TPFinalNivel3_Vazquez
         protected global::System.Web.UI.WebControls.TextBox txtImagenUrl;
 
         /// <summary>
+        /// Control imgArticuloError.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgArticuloError;
+
+        /// <summary>
         /// Control imgArticulo.
         /// </summary>
         /// <remarks>
