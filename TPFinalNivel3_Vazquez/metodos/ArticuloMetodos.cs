@@ -15,55 +15,56 @@ namespace metodos
         public List<Articulos> listar(string id = "")
         {
             List<Articulos> lista = new List<Articulos>();
-            SqlConnection conexion = new SqlConnection();
-            SqlCommand comando = new SqlCommand();
-            SqlDataReader lector;
+            AccesoDatos datos = new AccesoDatos();
             try
             {
-                conexion.ConnectionString = "server=.\\SQLEXPRESS; database=CATALOGO_WEB_DB; integrated security=true";
-                comando.CommandType = System.Data.CommandType.Text;
-                comando.CommandText = "Select A.Codigo, A.Nombre, A.Descripcion, M.Descripcion as Marca, A.ImagenUrl, C.Descripcion as Categoria, A.Precio, A.IdMarca, A.IdCategoria, A.Id From ARTICULOS A,CATEGORIAS C, MARCAS M Where M.Id = A.IdMarca AND C.Id = A.IdCategoria ";
+                //conexion.ConnectionString = "server=.\\SQLEXPRESS; database=CATALOGO_WEB_DB; integrated security=true";
+                // comando.CommandType = System.Data.CommandType.Text;
+                //comando.CommandText = "Select A.Codigo, A.Nombre, A.Descripcion, M.Descripcion as Marca, A.ImagenUrl, C.Descripcion as Categoria, A.Precio, A.IdMarca, A.IdCategoria, A.Id From ARTICULOS A,CATEGORIAS C, MARCAS M Where M.Id = A.IdMarca AND C.Id = A.IdCategoria ";
+                string consulta = "Select A.Codigo, A.Nombre, A.Descripcion, M.Descripcion as Marca, A.ImagenUrl, C.Descripcion as Categoria, A.Precio, A.IdMarca, A.IdCategoria, A.Id From ARTICULOS A,CATEGORIAS C, MARCAS M Where M.Id = A.IdMarca AND C.Id = A.IdCategoria ";
+                datos.setearConsulta(consulta);
+                datos.ejecutarLectura();
+
                 if (id != "")
                 {
-                    comando.CommandText += " and A.id = " + id;
+                    consulta += " and A.id = " + id;
                 }
-                comando.Connection = conexion;
-                conexion.Open();
-                lector = comando.ExecuteReader();
-
-                while (lector.Read())
+                while (datos.Lector.Read())
                 {
                     Articulos aux = new Articulos();
-                    aux.Id = (int)lector["Id"];
-                    aux.Codigo = (string)lector["Codigo"];
-                    aux.Nombre = (string)lector["Nombre"];
-                    aux.Descripcion = (string)lector["Descripcion"];
-                    if (!(lector["ImagenUrl"] is DBNull))
-                        aux.ImagenUrl = (string)lector["ImagenUrl"];
+                    aux.Id = (int)datos.Lector["Id"];
+                    aux.Codigo = (string)datos.Lector["Codigo"];
+                    aux.Nombre = (string)datos.Lector["Nombre"];
+                    aux.Descripcion = (string)datos.Lector["Descripcion"];
+                    if (!(datos.Lector["ImagenUrl"] is DBNull))
+                        aux.ImagenUrl = (string)datos.Lector["ImagenUrl"];
 
                     aux.Marca = new Marca();
-                    aux.Marca.Id = (int)lector["IdMarca"];
-                    aux.Marca.Descrip = (string)lector["Marca"];
+                    aux.Marca.Id = (int)datos.Lector["IdMarca"];
+                    aux.Marca.Descrip = (string)datos.Lector["Marca"];
                     aux.Categoria = new Categoria();
-                    aux.Categoria.Id = (int)lector["IdCategoria"];
-                    aux.Categoria.Descrip = (string)lector["Categoria"];
-                    aux.Precio = (decimal)lector["Precio"];
+                    aux.Categoria.Id = (int)datos.Lector["IdCategoria"];
+                    aux.Categoria.Descrip = (string)datos.Lector["Categoria"];
+                    aux.Precio = (decimal)datos.Lector["Precio"];
                     lista.Add(aux);
                 }
-                conexion.Close();
                 return lista;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
         public List<Articulos> listarxId(string id)
         {
             List<Articulos> art = new List<Articulos>();
+            AccesoDatos datos = new AccesoDatos();
             try
             {
-                AccesoDatos datos = new AccesoDatos();
                 string consulta = "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, M.Descripcion as Marca, A.ImagenUrl, C.Descripcion as Categoria, A.Precio, A.IdMarca, A.IdCategoria FROM ARTICULOS A INNER JOIN CATEGORIAS C ON C.Id = A.IdCategoria INNER JOIN MARCAS M ON M.Id = A.IdMarca WHERE A.Id = @id";
                 datos.setearConsulta(consulta);
                 datos.setearParametro("@id", id);
@@ -93,6 +94,10 @@ namespace metodos
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
             }
         }
         public void agregarArticulo(Articulos nuevo)
@@ -142,9 +147,10 @@ namespace metodos
         }
         public void eliminarArticulo(int id)
         {
+            AccesoDatos datos = new AccesoDatos();
             try
             {
-                AccesoDatos datos = new AccesoDatos();
+                
                 datos.setearConsulta("delete from ARTICULOS where Id = @id");
                 datos.setearParametro("@id", id);
                 datos.ejecutarAccion();
@@ -152,6 +158,10 @@ namespace metodos
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
             }
         }
         public List<Articulos> filtrar(string campo, string criterio, string filtro)
@@ -264,13 +274,17 @@ namespace metodos
             {
                 throw ex;
             }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }     
         public List<Articulos> listarFavoritos(int idUser)
         {
             List<Articulos> art = new List<Articulos>();
+            AccesoDatos datos = new AccesoDatos();
             try
             {
-                AccesoDatos datos = new AccesoDatos();
                 string consulta = "SELECT  A.Id, A.Codigo, A.Nombre, A.Descripcion, M.Descripcion as Marca, C.Descripcion as Categoria, A.Precio, A.IdMarca, A.IdCategoria FROM ARTICULOS A INNER JOIN CATEGORIAS C ON C.Id = A.IdCategoria INNER JOIN MARCAS M ON M.Id = A.IdMarca INNER JOIN FAVORITOS F ON F.IdArticulo = A.Id WHERE F.IdUser = @idUsuario";
                 datos.setearConsulta(consulta);
                 datos.setearParametro("@idUsuario", idUser);
@@ -296,6 +310,10 @@ namespace metodos
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
             }
         }
     }
