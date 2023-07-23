@@ -45,11 +45,13 @@
             <div class="md-3">
                 <label for="txtPrecio" class="form-label">Precio:</label>
                 <asp:TextBox runat="server" ID="txtPrecio" CssClass="form-control" />
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Ingrese un precio" ControlToValidate="txtPrecio"></asp:RequiredFieldValidator>
                 <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ValidationExpression="^\d+(,\d{1,4}0{0,4})?$" ControlToValidate="txtPrecio" ErrorMessage="Ingrese solo números"></asp:RegularExpressionValidator>
             </div>
             <div class="md-3">
-                <label for="txtDescripcion" class="form-label">Descripción:</label>
+                <label for="txtDescripcion" class="form-label">Descripción:</label>               
                 <asp:TextBox runat="server" TextMode="MultiLine" ID="txtDescripcion" CssClass="form-control" />
+                 <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Ingrese una descripción" ControlToValidate="txtDescripcion"></asp:RequiredFieldValidator>
             </div>
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                 <contenttemplate>
