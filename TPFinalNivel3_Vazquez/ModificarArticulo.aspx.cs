@@ -47,7 +47,7 @@ namespace TPFinalNivel3_Vazquez
                 if (id != "" && !IsPostBack)
                 {
                     ArticuloMetodos articulo = new ArticuloMetodos();
-                    Articulos seleccionado = (articulo.listar(id))[0];
+                    Articulos seleccionado = (articulo.listarxId(id))[0];
                     txtId.Text = id;
                     txtCodigo.Text = seleccionado.Codigo;
                     txtNombre.Text = seleccionado.Nombre;
