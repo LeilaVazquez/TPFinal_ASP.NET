@@ -18,8 +18,7 @@
         <div class="col-md-4">
             <div class="mb-3">
                 <label class="form-label">Email</label>
-                <asp:TextBox runat="server" ID="txtEmail" REQUIRED placeholder="Email" CssClass="form-control" TextMode="Email"/>
-              
+                <asp:TextBox runat="server" ID="txtEmail" REQUIRED placeholder="Email" CssClass="form-control" TextMode="Email"/>         
             </div>
             <div class="mb-3">
                 <label class="form-label">Nombre</label>

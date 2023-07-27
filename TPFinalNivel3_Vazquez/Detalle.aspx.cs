@@ -22,10 +22,10 @@ namespace TPFinalNivel3_Vazquez
                 if (!IsPostBack)
                 {
 
-                    ArticuloMetodos articulo = new ArticuloMetodos();
-                    Session.Add("listaArticulos", articulo.listarxId(id));
-                    dgvArticulos.DataSource = Session["listaArticulos"];
-                    dgvArticulos.DataBind();
+                    //ArticuloMetodos articulo = new ArticuloMetodos();
+                    //Session.Add("listaArticulos", articulo.listarxId(id));
+                    //dgvArticulos.DataSource = Session["listaArticulos"];
+                    //dgvArticulos.DataBind();
 
                 }
             }
