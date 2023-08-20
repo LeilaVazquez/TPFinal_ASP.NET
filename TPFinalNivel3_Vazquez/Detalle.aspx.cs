@@ -23,27 +23,39 @@ namespace TPFinalNivel3_Vazquez
             txtPrecio.Enabled = false;
             try
             {
-                string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
-                if (id != "" && !IsPostBack)
+
+                if (!IsPostBack)
                 {
-                    ArticuloMetodos articulo = new ArticuloMetodos();
-                    Articulos seleccionado = (articulo.listarxId(id))[0];
-                    txtNom.Text = seleccionado.Nombre;
-                    txtCod.Text = seleccionado.Codigo;
-                    txtDesc.Text = seleccionado.Descripcion;
-                    txtPrecio.Text = seleccionado.Precio.ToString();
-                    //txtImagen.Text = seleccionado.ImagenUrl;
-                    //if (txtImagen.Text == "")
-                    //{
-                    //    seleccionado.ImagenUrl = null;
-                    //}
-                    //else
-                    //{
-                    //    seleccionado.ImagenUrl = txtImagen.Text;
-                    //}
-                    txtMarca.Text = seleccionado.Marca.ToString();
-                    txtCat.Text = seleccionado.Categoria.ToString();
-                    //txtImagen_TextChanged(sender, e);
+                    string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
+
+                    if (!string.IsNullOrEmpty(id))
+                    {
+                        ArticuloMetodos articulo = new ArticuloMetodos();
+                        List<Articulos> listaArticulos = articulo.listarxId(id);
+
+                        if (listaArticulos.Count > 0)
+                        {
+                            Articulos seleccionado = listaArticulos[0];
+                            txtNom.Text = seleccionado.Nombre;
+                            txtCod.Text = seleccionado.Codigo;
+                            txtDesc.Text = seleccionado.Descripcion;
+                            txtPrecio.Text = seleccionado.Precio.ToString();
+                            txtImg.Text = seleccionado.ImagenUrl;
+                            txtMarca.Text = seleccionado.Marca.ToString();
+                            txtCat.Text = seleccionado.Categoria.ToString();
+
+                            if (!string.IsNullOrEmpty(seleccionado.ImagenUrl))
+                            {
+                                imgArticulo.ImageUrl = seleccionado.ImagenUrl;
+                            }
+                            else
+                            {
+                                imgArticulo.ImageUrl = "Images/default.png";
+                            }
+
+                        }
+                    }
+
                 }
             }
             catch (Exception ex)
